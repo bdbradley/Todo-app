@@ -4,7 +4,36 @@
   </header>
 
   <section class="main">
+    <ul class="todo-list">
 
+    </ul>
 
   </section>
 </section>
+
+
+
+
+<script>
+    //Registers code in curly braces to be executed when page loads
+    $(function() {
+    //Http get request to return tasks, if successful passes
+    //in the return tasks by the data argument
+    $.get("/tasks").success( function( data ) {
+      var htmlString = "";
+      //loops through each task and logs it to the JS console
+      $.each(data, function(index,  task) {
+        var liElement = '<li><div class="view"><input class="toggle" type="checkbox"><label>' +
+        task.title + '</label></div></li>';
+        htmlString += liElement;
+      });
+      //Commented out code which puts DOM element (HTML of todo-list, to console)
+      //console.log(htmlString);
+      //Creates html element .todo-list
+      var ulTodos = $('.todo-list')
+      //Assigns htmlstring around line 23 to ulTodos
+      ulTodos.html(htmlString);
+
+    });
+  });
+</script>
